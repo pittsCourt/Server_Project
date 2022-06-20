@@ -1,0 +1,24 @@
+version: "3.9"
+networks:
+  server_project:
+    driver: bridge
+
+services:
+  server1:
+    build: ./Server
+    volumes:
+      - ./Server:/user/src/db
+    expose:
+      - 8080
+    container_name: ${S1}
+  server2:
+    build: ./Server2
+    volumes: 
+      - ./Server2:/usr/src/app
+    ports:
+      - 80:80
+    depends_on: 
+      - server1
+    container_name: ${S2}
+
+  
